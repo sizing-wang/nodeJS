@@ -76,6 +76,7 @@ emitter.once("test", () => {
 emitter.emit("test"); // 只能触发一次
 emitter.emit("test");
 */
+/*
 emitter.setMaxListeners(20);
 emitter.on("test", () => {
     console.log("on1 ...");
@@ -114,5 +115,66 @@ emitter.on("test1", () => {
     console.log("test1 ...");
 });
 emitter.emit("test", "test1");
+*/
+/*
+emitter.on('test', (event) => {
+    console.log(event); // undefined
+});
+emitter.emit("test");
+ */
+/*
+emitter.on("test", (arg1, arg2) => {
+    console.log(arg1);
+    console.log(arg2);
+});
+emitter.emit("test", 11, 22);
+*/
+/*
+const arr = [11, 66];
+emitter.on("test", (arg1, arg2) => {
+    console.log(arg1, arg2);
+});
+emitter.emit("test", ...arr);
+*/
+/*
+const listener1 = () => {
+    console.log("listener1 ...");
+};
+const listener2 = () => {
+    console.log("listener2 ...");
+};
+emitter.on("show", listener1);
+emitter.on("show", listener2);
+// emitter.removeListener("show", listener1);
+emitter.off("show", listener2);
+emitter.emit("show");
+ */
+/*
+注意点:
+1. emitter.removeListener和emitter.off是同一个方法
+2. emitter.off 新增于: v10.0.0
+*/
+
+/*
+ 'newListener'事件,当有新的监听被添加是触发,回调函数接受两个参数分别是添加的事件名称和函数
+*/
+emitter.on("newListener", (evenName, callback) => {
+    console.log("newListener ...");
+    console.log(evenName);
+    // callback ? callback() : false;
+    callback && callback();
+});
+// emitter.emit("newListener");
+emitter.on("test", () => {
+    console.log("test ...");
+});
+emitter.on("show", () => {
+    console.log("show ...");
+});
+
+
+
+
+
 
 
